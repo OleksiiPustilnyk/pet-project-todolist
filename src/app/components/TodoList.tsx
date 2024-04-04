@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import TodoListItems from './TodoListItems'
+import CreateTodoInput from './CreateTodoInput'
 
 const data = [
     {
@@ -34,7 +35,34 @@ export default function TodoList() {
         )
     }
 
-    console.log(todos)
+    const removeTodo = (id: number) =>
+        setTodos([...todos].filter(t => t.id !== id))
 
-    return <TodoListItems todos={todos} changeTodo={changeTodo} />
+    let nextId = 4
+
+    const generateUniqueId = (): number => {
+        return nextId++
+    }
+
+    const addTodo = (title: string) => {
+        setTodos(prevTodos => [
+            ...prevTodos,
+            {
+                id: generateUniqueId(),
+                title,
+                isCompleted: false,
+            },
+        ])
+    }
+
+    return (
+        <div>
+            <TodoListItems
+                todos={todos}
+                changeTodo={changeTodo}
+                removeTodo={removeTodo}
+            />
+            <CreateTodoInput addTodo={addTodo} />
+        </div>
+    )
 }
