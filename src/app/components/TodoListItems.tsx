@@ -32,7 +32,7 @@ export default function TodoListItems({
         <>
             {todos.map(todo => (
                 <div
-                    className={`flex justify-between mb-4 items-center bg-gray-700 rounded-xl p-5 ${todo.isCompleted ? 'bg-emerald-500' : ''}`}
+                    className='flex justify-between mb-4 items-center bg-gray-700 rounded-xl p-5'
                     key={todo.id}
                 >
                     <div className='flex'>
@@ -43,7 +43,7 @@ export default function TodoListItems({
                                 id={todo.id}
                                 onClick={handleToggleComplete}
                                 icon={FaCheck}
-                                color=''
+                                color='white'
                             />
                         </div>
 
