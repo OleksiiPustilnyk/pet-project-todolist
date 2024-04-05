@@ -1,5 +1,5 @@
-import Check from './items/Check'
-import Trash from './items/Trash'
+import { FaCheck, FaTrashAlt } from 'react-icons/fa'
+import ActionButton from './buttons/Button'
 
 type TodoItem = {
     id: number
@@ -18,23 +18,43 @@ export default function TodoListItems({
     changeTodo,
     removeTodo,
 }: Props) {
+    const handleDelete = (id: number) => {
+        removeTodo(id)
+    }
+
+    const handleToggleComplete = (id: number) => {
+        changeTodo(id)
+    }
+
+    console.log(todos)
+
     return (
         <>
             {todos.map(todo => (
                 <div
-                    className='flex justify-between mb-4 items-center bg-gray-700 rounded-xl p-5 '
+                    className={`flex justify-between mb-4 items-center bg-gray-700 rounded-xl p-5 ${todo.isCompleted ? 'bg-emerald-500' : ''}`}
                     key={todo.id}
                 >
                     <div className='flex'>
-                        <Check
-                            id={todo.id}
-                            changeTodo={changeTodo}
-                            isCompleted={todo.isCompleted}
-                        />
+                        <div
+                            className={`border border-emerald-500 w-6 h-6 rounded-md mr-2 flex items-center justify-center ${todo.isCompleted ? 'bg-emerald-500' : ''}`}
+                        >
+                            <ActionButton
+                                id={todo.id}
+                                onClick={handleToggleComplete}
+                                icon={FaCheck}
+                                color=''
+                            />
+                        </div>
+
                         <div>{todo.title}</div>
                     </div>
-
-                    <Trash id={todo.id} removeTodo={removeTodo} />
+                    <ActionButton
+                        id={todo.id}
+                        onClick={handleDelete}
+                        icon={FaTrashAlt}
+                        color='red'
+                    />
                 </div>
             ))}
         </>
