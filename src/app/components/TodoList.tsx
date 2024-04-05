@@ -1,32 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import TodoListItems from './TodoListItems'
 import CreateTodoInput from './CreateTodoInput'
 
-const data = [
-    {
-        id: 1,
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, quam',
-        isCompleted: false,
-    },
-    {
-        id: 2,
-        title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-        isCompleted: false,
-    },
-    {
-        id: 3,
-        title: 'Lorem ipsum dolor sit amet consectetur',
-        isCompleted: false,
-    },
-]
+interface Todo {
+    id: number
+    title: string
+    isCompleted: boolean
+}
+
+const STORAGE_KEY = 'todosData'
 
 export default function TodoList() {
-    const [todos, setTodos] = useState(data)
+    const [todos, setTodos] = useState<Todo[]>(() => {
+        const storedTodos = localStorage.getItem(STORAGE_KEY)
+        return storedTodos ? JSON.parse(storedTodos) : []
+    })
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+    }, [todos])
 
     const changeTodo = (id: number) => {
-        setTodos(prevTodos =>
+        setTodos((prevTodos: Todo[]) =>
             prevTodos.map(todo =>
                 todo.id === id
                     ? { ...todo, isCompleted: !todo.isCompleted }
@@ -38,17 +35,11 @@ export default function TodoList() {
     const removeTodo = (id: number) =>
         setTodos([...todos].filter(t => t.id !== id))
 
-    let nextId = 4
-
-    const generateUniqueId = (): number => {
-        return nextId++
-    }
-
     const addTodo = (title: string) => {
-        setTodos(prevTodos => [
+        setTodos((prevTodos: Todo[]) => [
             ...prevTodos,
             {
-                id: generateUniqueId(),
+                id: prevTodos.length + 1,
                 title,
                 isCompleted: false,
             },
