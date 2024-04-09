@@ -3,13 +3,15 @@ type Props = {
     placeholder: string
     type: string
     name: string
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input = ({ children, type, name, placeholder }: Props) => {
+const Input = ({ children, type, name, placeholder, onChange }: Props) => {
     return (
         <label className='w-full flex justify-between items-center'>
             <span>{children}</span>
             <input
+                onChange={onChange}
                 type={type}
                 name={name}
                 placeholder={placeholder}
