@@ -1,11 +1,10 @@
 import NavigationButton from '@/components/UI/buttons/NavButton'
+import Title from '@/components/UI/title/Title'
 
 export default function Home() {
     return (
         <div className='mx-auto w-4/5 mt-20'>
-            <h1 className='text-center font-bold text-xl text-emerald-500 mb-7 '>
-                Home page
-            </h1>
+            <Title text='Home page' />
 
             <div className='flex justify-around'>
                 <NavigationButton
