@@ -5,6 +5,7 @@ import NavigationText from '@/components/buttons/NavText'
 import Input from '@/components/input/Input'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ControlButton from '../buttons/ControlButton'
 
 export default function RegistrationForm() {
     const [name, setName] = useState('')
@@ -95,12 +96,8 @@ export default function RegistrationForm() {
             {error && <div className='text-red-500'>{error}</div>}
 
             <div className='flex justify-around'>
-                <button
-                    type='submit'
-                    className='bg-emerald-500 hover:bg-emerald-400 rounded-md py-2 px-6 my-3'
-                >
-                    Submit
-                </button>
+                <ControlButton text='Submit' color='green' />
+
                 <NavigationButton text='Cancel' path='/' color='red' />
             </div>
 

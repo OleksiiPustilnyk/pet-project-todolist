@@ -6,6 +6,7 @@ import Input from '@/components/input/Input'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import ControlButton from '../buttons/ControlButton'
 
 export default function LogForm() {
     const [email, setEmail] = useState('')
@@ -60,13 +61,8 @@ export default function LogForm() {
             {error && <div className='text-red-500'>{error}</div>}
 
             <div className='flex justify-around'>
-                <button
-                    type='submit'
-                    className='bg-emerald-500 hover:bg-emerald-400 rounded-md py-2 px-6 my-3'
-                >
-                    Sign In
-                </button>
-                {/* <NavigationButton text='Sign In' path='/' color='green' /> */}
+                <ControlButton text='Sign In' color='green' />
+
                 <NavigationButton text='Cancel' path='/' color='red' />
             </div>
 
