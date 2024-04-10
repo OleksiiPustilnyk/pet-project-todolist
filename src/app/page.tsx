@@ -1,4 +1,4 @@
-import NavigationButton from '@/components/buttons/NavButton'
+import NavigationButton from '@/components/UI/buttons/NavButton'
 
 export default function Home() {
     return (

@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession, signOut } from 'next-auth/react'
-import ControlButton from '../buttons/ControlButton'
+import ControlButton from '../UI/buttons/ControlButton'
 
 export default function ProfileForm() {
     const { data: session } = useSession()

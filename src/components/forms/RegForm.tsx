@@ -1,11 +1,11 @@
 'use client'
 
-import NavigationButton from '@/components/buttons/NavButton'
-import NavigationText from '@/components/buttons/NavText'
-import Input from '@/components/input/Input'
+import NavigationButton from '@/components/UI/buttons/NavButton'
+import NavigationText from '@/components/UI/buttons/NavText'
+import Input from '@/components/UI/input/Input'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import ControlButton from '../buttons/ControlButton'
+import ControlButton from '../UI/buttons/ControlButton'
 
 export default function RegistrationForm() {
     const [name, setName] = useState('')

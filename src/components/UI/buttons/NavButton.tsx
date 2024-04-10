@@ -1,4 +1,4 @@
-import { cn } from '@/app/utils/cn'
+import { cn } from '@/utils/cn'
 import Link from 'next/link'
 
 interface NavigationButtonProps {

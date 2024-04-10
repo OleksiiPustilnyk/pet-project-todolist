@@ -1,4 +1,4 @@
-import LogForm from '@/components/forms/LogForm'
+import LogForm from '@/components/Forms/LogForm'
 import { authOptions } from '@/lib/authOptions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'

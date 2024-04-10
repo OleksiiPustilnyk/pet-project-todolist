@@ -1,5 +1,5 @@
 import { FaCheck, FaTrashAlt } from 'react-icons/fa'
-import ActionButton from './buttons/ActionButton'
+import ActionButton from '../UI/buttons/ActionButton'
 
 type TodoItem = {
     id: number

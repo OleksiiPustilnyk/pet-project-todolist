@@ -1,5 +1,5 @@
-import TodoList from '@/components/TodoList'
-import NavigationButton from '@/components/buttons/NavButton'
+import TodoList from '@/components/TodoList/TodoList'
+import NavigationButton from '@/components/UI/buttons/NavButton'
 
 export default function TodoListPage() {
     return (

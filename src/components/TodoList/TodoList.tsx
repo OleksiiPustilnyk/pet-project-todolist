@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import TodoListItems from './TodoListItems'
 import CreateTodoInput from './CreateTodoInput'
-import useTodoList from './hooks/useTodoList'
+import useTodoList from '../hooks/useTodoList'
 
 const STORAGE_KEY = 'todosData'
 
