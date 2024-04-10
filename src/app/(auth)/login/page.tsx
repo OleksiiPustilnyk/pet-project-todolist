@@ -1,6 +1,12 @@
-import LogForm from '@/components/authForms/LogForm'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import LogForm from '@/components/forms/LogForm'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
-export default function SignInPage() {
+export default async function SignInPage() {
+    const session = await getServerSession(authOptions)
+
+    if (session) redirect('/profile')
     return (
         <div className='mx-auto w-1/2 mt-20'>
             <h1 className='text-center font-bold text-xl text-emerald-500 mb-7 '>
