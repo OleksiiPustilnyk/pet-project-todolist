@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth/next'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import Credentials from 'next-auth/providers/credentials'
 import { SessionOptions } from 'next-auth'
 import { connectMongoDB } from '@/lib/mongodb'
 import User from '@/models/user'
@@ -7,9 +7,15 @@ import bcrypt from 'bcryptjs'
 
 const authOptions = {
     providers: [
-        CredentialsProvider({
+        Credentials({
             name: 'credentials',
-            credentials: {},
+            credentials: {
+                email: {
+                    label: 'Email',
+                    type: 'text',
+                },
+                password: { label: 'Password', type: 'password' },
+            },
 
             async authorize(credentials) {
                 const { email, password } = credentials
