@@ -1,31 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useCreateTodo } from '../hooks/useCreateTodo'
 
-type Props = {
-    addTodo: (title: string) => void
-}
-
-export default function CreateTodoInput({ addTodo }: Props) {
-    const [title, setTitle] = useState('')
-
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            addTodo(title)
-            setTitle('')
-        }
-    }
+export default function CreateTodoInput() {
+    const { title, error, handleSubmit, handleChange } = useCreateTodo()
 
     return (
-        <div className='flex mb-4 items-center bg-gray-700 rounded-xl p-3'>
-            <input
-                type='text'
-                onChange={e => setTitle(e.target.value)}
-                value={title}
-                onKeyPress={handleKeyPress}
-                className='bg-transparent w-full border-none focus:outline-none'
-                placeholder='Add TODO'
-            />
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div className='flex mb-4 items-center justify-between bg-gray-700 rounded-xl'>
+                <div className='my-3 mx-5 w-full'>
+                    <input
+                        type='text'
+                        className='bg-transparent w-full border-none focus:outline-none'
+                        placeholder='Add TODO'
+                        onChange={e => handleChange(e.target.value)}
+                        value={title}
+                    />
+                    {error && <p className='text-red-500'>{error}</p>}
+                </div>
+
+                <div className='flex items-center h-full'>
+                    <button className='h-full w-full bg-green-500 hover:bg-green-700 p-3 rounded-r-xl'>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
     )
 }

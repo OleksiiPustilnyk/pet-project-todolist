@@ -1,60 +1,54 @@
-import { FaCheck, FaTrashAlt } from 'react-icons/fa'
-import ActionButton from '../UI/buttons/ActionButton'
+'use client'
+
+import RemoveTodoBtn from './RemoveTodoBtn'
+import ToggleTodoBtn from './ToggleTodoBtn'
 
 type TodoItem = {
     id: number
+    _id: number
     title: string
     isCompleted: boolean
 }
 
-type Props = {
-    todos: TodoItem[]
-    changeTodo: (id: number) => void
-    removeTodo: (id: number) => void
+const getTodos = async () => {
+    try {
+        const res = await fetch('http://localhost:3000/api/todos', {
+            cache: 'no-store',
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to fetch todos')
+        }
+
+        return res.json()
+    } catch (error) {
+        console.log('Error loading todos: ', error)
+    }
 }
 
-export default function TodoListItems({
-    todos,
-    changeTodo,
-    removeTodo,
-}: Props) {
-    const handleDelete = (id: number) => {
-        removeTodo(id)
-    }
+export default async function TodoListItems() {
+    const { todos } = await getTodos()
 
-    const handleToggleComplete = (id: number) => {
-        changeTodo(id)
+    const handleToggleTodo = async (id: number) => {
+        console.log(`Toggle todo with id: ${id}`)
     }
-
-    console.log(todos)
 
     return (
         <>
-            {todos.map(todo => (
+            {todos.map((todo: TodoItem) => (
                 <div
                     className='flex justify-between mb-4 items-center bg-gray-700 rounded-xl p-5'
-                    key={todo.id}
+                    key={todo._id}
                 >
-                    <div className='flex'>
-                        <div
-                            className={`border border-emerald-500 w-6 h-6 rounded-md mr-2 flex items-center justify-center ${todo.isCompleted ? 'bg-emerald-500' : ''}`}
-                        >
-                            <ActionButton
-                                id={todo.id}
-                                onClick={handleToggleComplete}
-                                icon={FaCheck}
-                                color='white'
-                            />
-                        </div>
-
-                        <div>{todo.title}</div>
+                    <div className='flex items-center'>
+                        <ToggleTodoBtn
+                            id={todo._id}
+                            isCompleted={todo.isCompleted}
+                            onToggle={handleToggleTodo}
+                        />
+                        <div className='ml-4'>{todo.title}</div>
                     </div>
-                    <ActionButton
-                        id={todo.id}
-                        onClick={handleDelete}
-                        icon={FaTrashAlt}
-                        color='red'
-                    />
+                    <RemoveTodoBtn id={todo._id} />
                 </div>
             ))}
         </>
