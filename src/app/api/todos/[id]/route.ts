@@ -19,10 +19,7 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    {
-        params,
-        body,
-    }: { params: { id: string }; body: { isCompleted: boolean } },
+    { params }: { params: { id: string }; body: { isCompleted: boolean } },
 ) {
     try {
         const { id } = params

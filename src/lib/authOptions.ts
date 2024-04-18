@@ -48,7 +48,7 @@ export const authOptions = {
     ],
     session: {
         jwt: true,
-    } as unknown as SessionOptions, // ??
+    } as unknown as SessionOptions,
 
     secret: process.env.NEXTAUTH_SECRET,
     pages: {

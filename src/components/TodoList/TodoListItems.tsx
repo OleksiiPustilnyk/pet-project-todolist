@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import RemoveTodoBtn from './RemoveTodoBtn'
 import ToggleTodoBtn from './ToggleTodoBtn'
 
@@ -26,11 +27,27 @@ const getTodos = async () => {
     }
 }
 
-export default async function TodoListItems() {
-    const { todos } = await getTodos()
+export default function TodoListItems() {
+    const [todos, setTodos] = useState<TodoItem[]>([])
+
+    useEffect(() => {
+        const fetchTodos = async () => {
+            const data = await getTodos()
+            setTodos(data.todos)
+        }
+
+        fetchTodos()
+    }, [])
 
     const handleToggleTodo = async (id: number) => {
-        console.log(`Toggle todo with id: ${id}`)
+        const updatedTodos = todos.map(todo => {
+            if (todo._id === id) {
+                return { ...todo, isCompleted: !todo.isCompleted }
+            }
+            return todo
+        })
+
+        setTodos(updatedTodos)
     }
 
     return (
@@ -44,9 +61,13 @@ export default async function TodoListItems() {
                         <ToggleTodoBtn
                             id={todo._id}
                             isCompleted={todo.isCompleted}
-                            onToggle={handleToggleTodo}
+                            onToggle={() => handleToggleTodo(todo._id)}
                         />
-                        <div className='ml-4'>{todo.title}</div>
+                        <div
+                            className={`ml-4 ${todo.isCompleted ? 'line-through' : ''}`}
+                        >
+                            {todo.title}
+                        </div>
                     </div>
                     <RemoveTodoBtn id={todo._id} />
                 </div>
